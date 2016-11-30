@@ -9,7 +9,7 @@
 
 Name:           gstreamer1-plugins-good
 Version:        1.4.5
-Release:        2%{?dist}
+Release:        2.1%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
@@ -117,6 +117,8 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
+# Fix CVE-2016-9634, CVE-2016-9635, CVE-2016-9636
+rm -f $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstflxdec.so
 
 %files -f gst-plugins-good-%{majorminor}.lang
 %doc AUTHORS COPYING README REQUIREMENTS
@@ -145,7 +147,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgsteffectv.so
 %{_libdir}/gstreamer-%{majorminor}/libgstequalizer.so
 %{_libdir}/gstreamer-%{majorminor}/libgstflv.so
-%{_libdir}/gstreamer-%{majorminor}/libgstflxdec.so
+#%{_libdir}/gstreamer-%{majorminor}/libgstflxdec.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgoom2k1.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgoom.so
 %{_libdir}/gstreamer-%{majorminor}/libgsticydemux.so
@@ -206,6 +208,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Tue Nov 29 2016 Ricardo Arguello <rarguello@deskosproject.org> - 1.4.5-2.1
+- Fix CVE-2016-9634, CVE-2016-9635, CVE-2016-9636 by removing libgstflxdec.so
+- Rebuilt for DeskOS
+
 * Tue Jun 23 2015 Wim Taymans <wtaymans@redhat.com> - 1.4.5-2
 - update SSL certificates in unit test
 - Resolves: #1174398
